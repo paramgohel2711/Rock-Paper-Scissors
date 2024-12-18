@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock, Paper, Scissors</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #752020;
+        }
+        .game-container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .choices {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .choice {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 15px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .choice img {
+            width: 50%;
+        }
+        .choice:hover {
+            transform: scale(1.1);
+        }
+        .rock {
+            background-color: #ff9800;
+        }
+        .paper {
+            background-color: #2196f3;
+        }
+        .scissors {
+            background-color: #f44336;
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock, Paper, Scissors</h1>
+        <div class="choices">
+            <div class="choice rock" id="rock"><img src="https://tse1.mm.bing.net/th?id=OIP.uwDF1wjgf-j8AzAOx4Vt1QHaHZ&pid=Api&P=0&h=180" alt="Rock"></div>
+            <div class="choice paper" id="paper"><img src="https://www.pngfind.com/pngs/m/627-6273504_rock-paper-scissors-paper-rock-scissors-png-transparent.png" alt="Paper"></div>
+            <div class="choice scissors" id="scissors"><img src="https://www.clipartkey.com/mpngs/m/109-1094404_rock-paper-scissors-png.png" alt="Scissors"></div>
+        </div>
+        <div class="result" id="result"></div>
+        <div class="score">
+            Computer: <span id="computer-score">0</span> | You: <span id="player-score">0</span>
+        </div>
+    </div>
+    <script>
+        const choices = ["rock", "paper", "scissors"];
+        let playerScore = 0;
+        let computerScore = 0;
+        function getComputerChoice() {
+            return choices[Math.floor(Math.random() * 3)];
+        }
+        function determineWinner(playerChoice, computerChoice) {
+            if (playerChoice === computerChoice) {
+                return "It's a tie!";
+            } else if (
+                (playerChoice === "rock" && computerChoice === "scissors") ||
+                (playerChoice === "paper" && computerChoice === "rock") ||
+                (playerChoice === "scissors" && computerChoice === "paper")
+            ) {
+                playerScore++;
+                return "You win!";
+            } else {
+                computerScore++;
+                return "Computer wins!";
+            }
+        }
+        function playGame(playerChoice) {
+            const computerChoice = getComputerChoice();
+            const result = determineWinner(playerChoice, computerChoice);
+            document.getElementById("result").textContent = `You chose ${playerChoice}, the computer chose ${computerChoice}. ${result}`;
+            document.getElementById("player-score").textContent = playerScore;
+            document.getElementById("computer-score").textContent = computerScore;
+        }
+        document.getElementById("rock").addEventListener("click", () => playGame("rock"));
+        document.getElementById("paper").addEventListener("click", () => playGame("paper"));
+        document.getElementById("scissors").addEventListener("click", () => playGame("scissors"));
+    </script>
+</body>
+</html>
